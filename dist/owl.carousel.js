@@ -219,6 +219,7 @@
 		loadingClass: 'owl-loading',
 		rtlClass: 'owl-rtl',
 		responsiveClass: 'owl-responsive',
+        baseClass: 'owl-carousel',
 		dragClass: 'owl-drag',
 		itemClass: 'owl-item',
 		stageClass: 'owl-stage',
@@ -442,7 +443,9 @@
 		this.enter('initializing');
 		this.trigger('initialize');
 
-		this.$element.toggleClass(this.settings.rtlClass, this.settings.rtl);
+		this.$element
+            .addClass(this.settings.baseClass)
+            .toggleClass(this.settings.rtlClass, this.settings.rtl);
 
 		if (this.settings.autoWidth && !this.is('pre-loading')) {
 			var imgs, nestedSelector, width;
