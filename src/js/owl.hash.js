@@ -74,21 +74,23 @@
 		// set default options
 		this._core.options = $.extend({}, Hash.Defaults, this._core.options);
 
-		// register the event handlers
-		this.$element.on(this._handlers);
+		if (this._core.options.URLhashListener) {
+			// register the event handlers
+			this.$element.on(this._handlers);
 
-		// register event listener for hash navigation
-		$(window).on('hashchange.owl.navigation', $.proxy(function(e) {
-			var hash = window.location.hash.substring(1),
-				items = this._core.$stage.children(),
-				position = this._hashes[hash] && items.index(this._hashes[hash]);
+			// register event listener for hash navigation
+			$(window).on('hashchange.owl.navigation', $.proxy(function(e) {
+				var hash = window.location.hash.substring(1),
+					items = this._core.$stage.children(),
+					position = this._hashes[hash] && items.index(this._hashes[hash]);
 
-			if (position === undefined || position === this._core.current()) {
-				return;
-			}
+				if (position === undefined || position === this._core.current()) {
+					return;
+				}
 
-			this._core.to(this._core.relative(position), false, true);
-		}, this));
+				this._core.to(this._core.relative(position), false, true);
+			}, this));
+		}
 	};
 
 	/**
