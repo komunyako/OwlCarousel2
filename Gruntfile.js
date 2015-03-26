@@ -97,7 +97,8 @@ module.exports = function(grunt) {
 				},
 				dist: {
 					options: {
-						style: 'expanded'
+						style: 'expanded',
+                        'sourcemap=none': true
 					},
 					files: [ {
 						expand: true,
