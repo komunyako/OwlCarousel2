@@ -1,4 +1,4 @@
-/* 
+/*
  *  Core Owl Carousel CSS File
  */
 .owl-carousel {
@@ -26,8 +26,11 @@
   overflow: hidden;
   /* fix for flashing background */
   -webkit-transform: translate3d(0px, 0px, 0px);
+  transform: translate3d(0px, 0px, 0px);
 }
 .owl-carousel .owl-item {
+  -webkit-transform: translate3d(0px, 0px, 0px);
+  transform: translate3d(0px, 0px, 0px);
   position: relative;
   min-height: 1px;
   float: left;
@@ -39,6 +42,7 @@
   display: block;
   width: 100%;
   -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
 }
 .owl-carousel .owl-nav.disabled,
 .owl-carousel .owl-dots.disabled {

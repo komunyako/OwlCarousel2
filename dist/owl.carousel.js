@@ -219,7 +219,7 @@
 		loadingClass: 'owl-loading',
 		rtlClass: 'owl-rtl',
 		responsiveClass: 'owl-responsive',
-        baseClass: 'owl-carousel',
+		baseClass: 'owl-carousel',
 		dragClass: 'owl-drag',
 		itemClass: 'owl-item',
 		stageClass: 'owl-stage',
@@ -314,6 +314,18 @@
 			}
 
 			this._widths = widths;
+
+			var content_width = 0;
+			$.each( widths, function (i, w) {
+				content_width += w;
+			});
+			content_width += this.settings.margin*(widths.length-1);
+			if (content_width < this._width) {
+				this.settings.nav = false;
+				this.settings.mouseDrag = false;
+				this.settings.touchDrag = false;
+				this.settings.loop = false;
+			}
 		}
 	}, {
 		filter: [ 'items', 'settings' ],
@@ -444,8 +456,8 @@
 		this.trigger('initialize');
 
 		this.$element
-            .addClass(this.settings.baseClass)
-            .toggleClass(this.settings.rtlClass, this.settings.rtl);
+			.addClass(this.settings.baseClass)
+			.toggleClass(this.settings.rtlClass, this.settings.rtl);
 
 		if (this.settings.autoWidth && !this.is('pre-loading')) {
 			var imgs, nestedSelector, width;
@@ -1922,6 +1934,7 @@
 		 * @type {Owl}
 		 */
 		this._core = carousel;
+        this.items = $();
 
 		/**
 		 * All event handlers.
@@ -1929,9 +1942,10 @@
 		 * @type {Object}
 		 */
 		this._handlers = {
-			'initialized.owl.carousel refreshed.owl.carousel': $.proxy(function(e) {
+			'initialized.owl.carousel refreshed.owl.carousel replace.owl.carousel add.owl.carousel loaded.owl.lazy': $.proxy(function(e) {
 				if (e.namespace && this._core.settings.autoHeight) {
 					this.update();
+                    this.items = this._core.$stage.children();
 				}
 			}, this),
 			'changed.owl.carousel': $.proxy(function(e) {
@@ -1967,9 +1981,10 @@
 	 * Updates the view.
 	 */
 	AutoHeight.prototype.update = function() {
-		var start = this._core._current,
-			end = start + this._core.settings.items,
-			visible = this._core.$stage.children().toArray().slice(start, end);
+		var $items = this.items,
+            start = this._core._current,
+            end = start + $items.filter('.active').length,
+            visible = $items.toArray().slice(start, end),
 			heights = [],
 			maxheight = 0;
 
@@ -3021,21 +3036,23 @@
 		// set default options
 		this._core.options = $.extend({}, Hash.Defaults, this._core.options);
 
-		// register the event handlers
-		this.$element.on(this._handlers);
+		if (this._core.options.URLhashListener) {
+			// register the event handlers
+			this.$element.on(this._handlers);
 
-		// register event listener for hash navigation
-		$(window).on('hashchange.owl.navigation', $.proxy(function(e) {
-			var hash = window.location.hash.substring(1),
-				items = this._core.$stage.children(),
-				position = this._hashes[hash] && items.index(this._hashes[hash]);
+			// register event listener for hash navigation
+			$(window).on('hashchange.owl.navigation', $.proxy(function(e) {
+				var hash = window.location.hash.substring(1),
+					items = this._core.$stage.children(),
+					position = this._hashes[hash] && items.index(this._hashes[hash]);
 
-			if (position === undefined || position === this._core.current()) {
-				return;
-			}
+				if (position === undefined || position === this._core.current()) {
+					return;
+				}
 
-			this._core.to(this._core.relative(position), false, true);
-		}, this));
+				this._core.to(this._core.relative(position), false, true);
+			}, this));
+		}
 	};
 
 	/**
