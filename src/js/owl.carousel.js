@@ -320,7 +320,7 @@
 				content_width += w;
 			});
 			content_width += this.settings.margin*(widths.length-1);
-			if (content_width < this._width) {
+			if (content_width <= this._width) {
 				this.settings.nav = false;
 				this.settings.mouseDrag = false;
 				this.settings.touchDrag = false;
