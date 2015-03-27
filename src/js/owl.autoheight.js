@@ -18,7 +18,7 @@
 		 * @type {Owl}
 		 */
 		this._core = carousel;
-        this.items = $();
+		this.items = $();
 
 		/**
 		 * All event handlers.
@@ -28,8 +28,8 @@
 		this._handlers = {
 			'initialized.owl.carousel refreshed.owl.carousel replace.owl.carousel add.owl.carousel loaded.owl.lazy': $.proxy(function(e) {
 				if (e.namespace && this._core.settings.autoHeight) {
+					this.items = this._core.$stage.children();
 					this.update();
-                    this.items = this._core.$stage.children();
 				}
 			}, this),
 			'changed.owl.carousel': $.proxy(function(e) {
@@ -65,14 +65,11 @@
 	 * Updates the view.
 	 */
 	AutoHeight.prototype.update = function() {
-		var $items = this.items,
-            start = this._core._current,
-            end = start + $items.filter('.active').length,
-            visible = $items.toArray().slice(start, end),
+		var $visible = this.items.filter('.active'),
 			heights = [],
 			maxheight = 0;
 
-		$.each(visible, function(index, item) {
+		$.each($visible, function(index, item) {
 			heights.push($(item).height());
 		});
 
