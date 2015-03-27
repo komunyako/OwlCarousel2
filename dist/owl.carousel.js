@@ -326,6 +326,13 @@
 				this.settings.touchDrag = false;
 				this.settings.loop = false;
 			}
+			else {
+				this.settings.nav = this.options.nav;
+				this.settings.mouseDrag = this.options.mouseDrag;
+				this.settings.touchDrag = this.options.touchDrag;
+				this.settings.loop = this.options.loop;
+				this.registerEventHandlers();
+			}
 
 			this._widths = widths;
 		}
@@ -1355,19 +1362,19 @@
 	 * @protected
 	 */
 	Owl.prototype.preloadAutoWidthImages = function(images) {
-        var self = this;
+		var self = this;
 
-        self.enter('pre-loading');
-        self.$element.addClass(self.options.loadingClass);
-        self.$element.imagesLoaded()
-            .progress(function ( instance, image ) {
-            })
-            .done(function ( instance ) {
-                self.invalidate('items');
-                self.$element.removeClass(self.options.loadingClass);
-                self.refresh();
-                self.leave('pre-loading');
-            });
+		self.enter('pre-loading');
+		self.$element.addClass(self.options.loadingClass);
+		self.$element.imagesLoaded()
+			.progress(function ( instance, image ) {
+			})
+			.done(function ( instance ) {
+				self.invalidate('items');
+				self.$element.removeClass(self.options.loadingClass);
+				self.refresh();
+				self.leave('pre-loading');
+			});
 	};
 
 	/**
