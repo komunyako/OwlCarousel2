@@ -219,7 +219,7 @@
 		loadingClass: 'owl-loading',
 		rtlClass: 'owl-rtl',
 		responsiveClass: 'owl-responsive',
-        baseClass: 'owl-carousel',
+		baseClass: 'owl-carousel',
 		dragClass: 'owl-drag',
 		itemClass: 'owl-item',
 		stageClass: 'owl-stage',
@@ -314,6 +314,18 @@
 			}
 
 			this._widths = widths;
+
+			var content_width = 0;
+			$.each( widths, function (i, w) {
+				content_width += w;
+			});
+			content_width += this.settings.margin*(widths.length-1);
+			if (content_width < this._width) {
+				this.settings.nav = false;
+				this.settings.mouseDrag = false;
+				this.settings.touchDrag = false;
+				this.settings.loop = false;
+			}
 		}
 	}, {
 		filter: [ 'items', 'settings' ],
@@ -444,8 +456,8 @@
 		this.trigger('initialize');
 
 		this.$element
-            .addClass(this.settings.baseClass)
-            .toggleClass(this.settings.rtlClass, this.settings.rtl);
+			.addClass(this.settings.baseClass)
+			.toggleClass(this.settings.rtlClass, this.settings.rtl);
 
 		if (this.settings.autoWidth && !this.is('pre-loading')) {
 			var imgs, nestedSelector, width;
