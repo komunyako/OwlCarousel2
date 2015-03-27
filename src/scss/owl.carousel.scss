@@ -28,12 +28,12 @@
 		overflow: hidden;
 		/* fix for flashing background */
 		-webkit-transform: translate3d(0px, 0px, 0px);
-		transform translate3d(0px, 0px, 0px)
+		transform: translate3d(0px, 0px, 0px);
 	}
 
 	.owl-item {
 		-webkit-transform: translate3d(0px, 0px, 0px);
-		transform translate3d(0px, 0px, 0px)
+		transform: translate3d(0px, 0px, 0px);
 		position: relative;
 		min-height: 1px;
 		float: left;
