@@ -459,15 +459,20 @@
 			.addClass(this.settings.baseClass)
 			.toggleClass(this.settings.rtlClass, this.settings.rtl);
 
-		if (this.settings.autoWidth && !this.is('pre-loading')) {
-			var imgs, nestedSelector, width;
-			imgs = this.$element.find('img');
-			nestedSelector = this.settings.nestedItemSelector ? '.' + this.settings.nestedItemSelector : undefined;
-			width = this.$element.children(nestedSelector).width();
+		// if (this.settings.autoWidth && !this.is('pre-loading')) {
+		// 	var imgs, nestedSelector, width;
+		// 	imgs = this.$element.find('img');
+		// 	nestedSelector = this.settings.nestedItemSelector ? '.' + this.settings.nestedItemSelector : undefined;
+		// 	width = this.$element.children(nestedSelector).width();
 
-			if (imgs.length && width <= 0) {
-				this.preloadAutoWidthImages(imgs);
-			}
+		// 	if (imgs.length && width <= 0) {
+		// 		this.preloadAutoWidthImages(imgs);
+		// 	}
+		// }
+
+		var imgs = this.$element.find('img');
+		if (imgs.length) {
+			this.preloadAutoWidthImages(imgs);
 		}
 
 		this.$element.addClass(this.options.loadingClass);
