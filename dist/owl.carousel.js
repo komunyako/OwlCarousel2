@@ -2843,7 +2843,7 @@
 	Navigation.prototype.draw = function() {
 		var difference,
 			settings = this._core.settings,
-			disabled = this._core.items().length <= settings.items,
+			disabled = this._core.$stage.children().filter('.active').length >= this._core.items().length,
 			index = this._core.relative(this._core.current()),
 			loop = settings.loop || settings.rewind;
 
