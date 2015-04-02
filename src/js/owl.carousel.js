@@ -297,7 +297,6 @@
 				merge = null,
 				iterator = this._items.length,
 				grid = !this.settings.autoWidth,
-				content_width = 0,
 				widths = [];
 
 			cache.items = {
@@ -312,28 +311,6 @@
 				cache.items.merge = merge > 1 || cache.items.merge;
 
 				widths[iterator] = !grid ? this._items[iterator].width() : width * merge;
-			}
-
-			$.each( widths, function (i, w) {
-				content_width += w;
-			});
-
-			content_width += this.settings.margin*(widths.length-1);
-
-			if (content_width <= this._width) {
-				this.settings.nav = false;
-				this.settings.center = false;
-				this.settings.mouseDrag = false;
-				this.settings.touchDrag = false;
-				this.settings.loop = false;
-			}
-			else {
-				this.settings.nav = this.options.nav;
-				this.settings.center = this.options.center;
-				this.settings.mouseDrag = this.options.mouseDrag;
-				this.settings.touchDrag = this.options.touchDrag;
-				this.settings.loop = this.options.loop;
-				this.registerEventHandlers();
 			}
 
 			this._widths = widths;
@@ -559,6 +536,38 @@
 		}
 	};
 
+	Owl.prototype.widthsLogic = function() {
+		var content_width = 0,
+			$items = this.items();
+
+
+		$.each( $items, function (i, item) {
+			content_width += $items[i].width();
+		});
+
+		content_width += this.settings.margin*($items.length-1);
+
+		if (content_width <= this.$element.width()) {
+			console.log('less')
+			this.settings.nav = false;
+			this.settings.center = false;
+			this.settings.mouseDrag = false;
+			this.settings.touchDrag = false;
+			this.settings.loop = false;
+		}
+		else {
+			console.log('more')
+			this.settings.nav = this.options.nav;
+			this.settings.center = this.options.center;
+			this.settings.mouseDrag = this.options.mouseDrag;
+			this.settings.touchDrag = this.options.touchDrag;
+			this.settings.loop = this.options.loop;
+			this.registerEventHandlers();
+		}
+
+		this.invalidate('items');
+	};
+
 	/**
 	 * Prepares an item before add.
 	 * @todo Rename event parameter `content` to `item`.
@@ -628,6 +637,7 @@
 		this.setup();
 
 		this.optionsLogic();
+		this.widthsLogic();
 
 		this.$element.addClass(this.options.refreshClass);
 
