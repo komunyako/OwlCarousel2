@@ -548,7 +548,6 @@
 		content_width += this.settings.margin*($items.length-1);
 
 		if (content_width <= this.$element.width()) {
-			console.log('less')
 			this.settings.nav = false;
 			this.settings.center = false;
 			this.settings.mouseDrag = false;
@@ -556,7 +555,6 @@
 			this.settings.loop = false;
 		}
 		else {
-			console.log('more')
 			this.settings.nav = this.options.nav;
 			this.settings.center = this.options.center;
 			this.settings.mouseDrag = this.options.mouseDrag;
