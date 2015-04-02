@@ -322,12 +322,14 @@
 
 			if (content_width <= this._width) {
 				this.settings.nav = false;
+				this.settings.center = false;
 				this.settings.mouseDrag = false;
 				this.settings.touchDrag = false;
 				this.settings.loop = false;
 			}
 			else {
 				this.settings.nav = this.options.nav;
+				this.settings.center = this.options.center;
 				this.settings.mouseDrag = this.options.mouseDrag;
 				this.settings.touchDrag = this.options.touchDrag;
 				this.settings.loop = this.options.loop;
