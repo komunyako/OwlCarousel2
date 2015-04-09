@@ -157,6 +157,7 @@
 		this._controls.$previous = $('<' + settings.navElement + '>')
 			.addClass(settings.navClass[0])
 			.html(settings.navText[0])
+			.attr('title', settings.navText[0])
 			.prependTo(this._controls.$relative)
 			.on('click', $.proxy(function(e) {
 				this.prev(settings.navSpeed);
@@ -164,6 +165,7 @@
 		this._controls.$next = $('<' + settings.navElement + '>')
 			.addClass(settings.navClass[1])
 			.html(settings.navText[1])
+			.attr('title', settings.navText[1])
 			.appendTo(this._controls.$relative)
 			.on('click', $.proxy(function(e) {
 				this.next(settings.navSpeed);
@@ -260,7 +262,7 @@
 	Navigation.prototype.draw = function() {
 		var difference,
 			settings = this._core.settings,
-            $items = this._core.$stage.children(),
+			$items = this._core.$stage.children(),
 			disabled = $items.filter('.active').length >= $items.length,
 			index = this._core.relative(this._core.current()),
 			loop = settings.loop || settings.rewind;
