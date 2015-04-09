@@ -33,7 +33,7 @@
 				}
 			}, this),
 			'changed.owl.carousel': $.proxy(function(e) {
-				if (e.namespace && this._core.settings.autoHeight && e.property.name == 'position'){
+				if (e.namespace && this._core.settings.autoHeight && e.property.name == 'items'){
 					this.update();
 				}
 			}, this),

@@ -425,13 +425,17 @@
 				}
 			}
 
-			this.$stage.children('.active').removeClass('active');
-			this.$stage.children(':eq(' + matches.join('), :eq(') + ')').addClass('active');
+			var $items = this.$stage.children();
+
+			$items.filter('.active').removeClass('active');
+			$items.filter(':eq(' + matches.join('), :eq(') + ')').addClass('active');
 
 			if (this.settings.center) {
-				this.$stage.children('.center').removeClass('center');
-				this.$stage.children().eq(this.current()).addClass('center');
+				$items.filter('.center').removeClass('center');
+				$items.eq(this.current()).addClass('center');
 			}
+
+			this.trigger('changed', { property: { name: 'items', value: $items } });
 		}
 	} ];
 
@@ -1965,7 +1969,7 @@
 				}
 			}, this),
 			'changed.owl.carousel': $.proxy(function(e) {
-				if (e.namespace && this._core.settings.autoHeight && e.property.name == 'position'){
+				if (e.namespace && this._core.settings.autoHeight && e.property.name == 'items'){
 					this.update();
 				}
 			}, this),
