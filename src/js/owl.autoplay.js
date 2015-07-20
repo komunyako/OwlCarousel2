@@ -39,6 +39,9 @@
 		 */
 		this._handlers = {
 			'changed.owl.carousel': $.proxy(function(e) {
+				if (this._core.is('rotating')) {
+					this.reset();
+				}
 				if (e.namespace && e.property.name === 'settings') {
 					if (this._core.settings.autoplay) {
 						this.play();
@@ -126,6 +129,24 @@
 
 		window.clearInterval(this._interval);
 		this._core.leave('rotating');
+	};
+
+	/**
+	 * Reseting interval.
+	 * @public
+	 */
+	Autoplay.prototype.reset = function() {
+		if (!this._core.is('rotating')) {
+			return;
+		}
+
+		window.clearInterval(this._interval);
+		this._interval = window.setInterval($.proxy(function() {
+			if (this._paused || this._core.is('busy') || this._core.is('interacting') || document.hidden) {
+				return;
+			}
+			this._core.next(speed || this._core.settings.autoplaySpeed);
+		}, this), timeout || this._core.settings.autoplayTimeout);
 	};
 
 	/**
