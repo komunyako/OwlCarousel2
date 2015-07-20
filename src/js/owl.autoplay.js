@@ -145,8 +145,8 @@
 			if (this._paused || this._core.is('busy') || this._core.is('interacting') || document.hidden) {
 				return;
 			}
-			this._core.next(speed || this._core.settings.autoplaySpeed);
-		}, this), timeout || this._core.settings.autoplayTimeout);
+			this._core.next(this._core.settings.autoplaySpeed);
+		}, this), this._core.settings.autoplayTimeout);
 	};
 
 	/**
