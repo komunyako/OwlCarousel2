@@ -541,29 +541,22 @@
 	};
 
 	Owl.prototype.widthsLogic = function() {
-		var content_width = 0,
-			$items = this.items();
+		var settings = this.settings;
+		var options = this.options;
 
-
-		$.each( $items, function (i, item) {
-			content_width += $items[i].width();
-		});
-
-		content_width += this.settings.margin*($items.length-1);
-
-		if (content_width <= this.$element.width()) {
-			this.settings.nav = false;
-			this.settings.center = false;
-			this.settings.mouseDrag = false;
-			this.settings.touchDrag = false;
-			this.settings.loop = false;
+		if (this.items().length <= settings.items) {
+			settings.nav = false;
+			settings.center = false;
+			settings.mouseDrag = false;
+			settings.touchDrag = false;
+			settings.loop = false;
 		}
 		else {
-			this.settings.nav = this.options.nav;
-			this.settings.center = this.options.center;
-			this.settings.mouseDrag = this.options.mouseDrag;
-			this.settings.touchDrag = this.options.touchDrag;
-			this.settings.loop = this.options.loop;
+			settings.nav = options.nav;
+			settings.center = options.center;
+			settings.mouseDrag = options.mouseDrag;
+			settings.touchDrag = options.touchDrag;
+			settings.loop = options.loop;
 			this.registerEventHandlers();
 		}
 
